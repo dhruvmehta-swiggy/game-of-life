@@ -9,34 +9,27 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class GridTest {
+public class GameTest {
 
-    // Test to check constructor when grid is null
+    // Test to check Game constructor when grid is null
     @Test
     public void testConstructor_NullGrid_ThrowsInvalidGridException() {
         assertThrows(InvalidGridException.class, () -> {
-            new Grid(null);
+            new Game(null);
         });
     }
 
-    // Test to check constructor when grid is empty
+    // Test to check Game constructor when grid is valid
     @Test
-    public void testConstructor_EmptyGrid_ThrowsInvalidGridException() {
-        assertThrows(InvalidGridException.class, () -> {
-            new Grid(new ArrayList<>());
-        });
-    }
-
-    // Test to check constructor when grid is valid
-    @Test
-    public void testConstructor_ValidGrid() {
-        List<List<Cell>> validGrid = new ArrayList<>();
+    public void testConstructor_ValidGrid_DoesNotThrowException() {
+        List<List<Cell>> arr = new ArrayList<>();
         List<Cell> row = new ArrayList<>();
         row.add(new Cell(false));
-        validGrid.add(row);
+        arr.add(row);
+        Grid grid = new Grid(arr);
 
         assertDoesNotThrow(() -> {
-            new Grid(validGrid);
+            new Game(grid);
         });
     }
 }
