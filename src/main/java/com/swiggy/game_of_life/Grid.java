@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.swiggy.game_of_life.Util.createEmptyGrid;
+
 public class Grid {
 
     // 2D array to store the grid
@@ -12,24 +14,11 @@ public class Grid {
     private int columns;
 
     public Grid(List<List<Cell>> grid) {
-        GameRules.validateGrid(grid);
+        Util.validateGrid(grid);
 
         this.grid = grid;
         this.rows = grid.size();
         this.columns = grid.get(0).size();
-    }
-
-    // Method to create an empty grid
-    public static List<List<Cell>> createEmptyGrid(int rows, int cols) {
-        List<List<Cell>> grid = new ArrayList<>();
-        for (int i = 0; i < rows; i++) {
-            List<Cell> row = new ArrayList<>();
-            for (int j = 0; j < cols; j++) {
-                row.add(new Cell(false)); // Initialize all cells as dead
-            }
-            grid.add(row);
-        }
-        return grid;
     }
 
     // Method to count the number of live neighbours of a cell
@@ -57,7 +46,7 @@ public class Grid {
             for (int j = 0; j < columns; j++) {
                 int liveNeighbours = countLiveNeighbours(i, j);
                 boolean isAlive = Cell.isAlive(grid.get(i).get(j));
-                if (GameRules.shouldCellLive(isAlive, liveNeighbours)) {
+                if (Util.shouldCellLive(isAlive, liveNeighbours)) {
                     Cell.revive(newGrid.get(i).get(j));
                 } else {
                     Cell.kill(newGrid.get(i).get(j));
