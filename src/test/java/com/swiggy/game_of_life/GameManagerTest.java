@@ -9,13 +9,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class GameTest {
+public class GameManagerTest {
 
     // Test to check Game constructor when grid is null
     @Test
     public void testConstructor_NullGrid_ThrowsInvalidGridException() {
         assertThrows(InvalidGridException.class, () -> {
-            new Game(null);
+            new GameManager(null);
         });
     }
 
@@ -29,7 +29,7 @@ public class GameTest {
         Grid grid = new Grid(arr);
 
         assertDoesNotThrow(() -> {
-            new Game(grid);
+            new GameManager(grid);
         });
     }
 }
