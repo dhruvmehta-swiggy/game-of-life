@@ -85,4 +85,7 @@ public class GridTest {
         int liveNeighbours = grid.countLiveNeighbours(2, 0);
         assertEquals(2, liveNeighbours);
     }
+
+    // Test to check isGridValid method when grid is null
+
 }

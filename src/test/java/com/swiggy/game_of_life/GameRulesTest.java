@@ -1,9 +1,13 @@
 package com.swiggy.game_of_life;
 
+import com.swiggy.game_of_life.Exceptions.InvalidGridException;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameRulesTest {
 
@@ -53,5 +57,39 @@ public class GameRulesTest {
         boolean isCurrentlyAlive = false;
         int liveNeighbours = 2;
         assertFalse(GameRules.shouldCellLive(isCurrentlyAlive, liveNeighbours));
+    }
+
+    // Test to check validateGrid method with null grid
+    @Test
+    public void testValidateGrid_WhenGridIsNull_ThrowsInvalidGridException() {
+        assertThrows(InvalidGridException.class, () -> GameRules.validateGrid(null));
+    }
+
+    // Test to check validateGrid method with empty grid
+    @Test
+    public void testValidateGrid_WhenGridIsEmpty_ThrowsInvalidGridException() {
+        assertThrows(InvalidGridException.class, () -> GameRules.validateGrid(new ArrayList<>()));
+    }
+
+    // Test to check validateGrid method with grid having different number of columns
+    @Test
+    public void testValidateGrid_WhenGridHasDifferentColumns_ThrowsInvalidGridException() {
+        List<List<Cell>> cells = Arrays.asList(
+                Arrays.asList(new Cell(false), new Cell(true), new Cell(false)),
+                Arrays.asList(new Cell(true), new Cell(true)),
+                Arrays.asList(new Cell(false), new Cell(false), new Cell(true))
+        );
+        assertThrows(InvalidGridException.class, () -> GameRules.validateGrid(cells));
+    }
+
+    // Test to check validateGrid method with valid grid
+    @Test
+    public void testValidateGrid_WhenGridIsValid() {
+        List<List<Cell>> cells = Arrays.asList(
+                Arrays.asList(new Cell(false), new Cell(true), new Cell(false)),
+                Arrays.asList(new Cell(true), new Cell(true), new Cell(false)),
+                Arrays.asList(new Cell(false), new Cell(false), new Cell(true))
+        );
+        assertDoesNotThrow(() -> GameRules.validateGrid(cells));
     }
 }

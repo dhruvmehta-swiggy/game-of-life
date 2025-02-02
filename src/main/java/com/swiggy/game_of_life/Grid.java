@@ -12,9 +12,7 @@ public class Grid {
     private int columns;
 
     public Grid(List<List<Cell>> grid) {
-        if (grid == null || grid.isEmpty()) {
-            throw new InvalidGridException("Grid cannot be null or empty");
-        }
+        GameRules.validateGrid(grid);
 
         this.grid = grid;
         this.rows = grid.size();
