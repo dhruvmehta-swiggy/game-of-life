@@ -27,7 +27,7 @@ public class Grid {
 
         for (int i = row - 1; i <= row + 1; i++) {
             for (int j = column - 1; j <= column + 1; j++) {
-                if (i >= 0 && i < rows && j >= 0 && j < columns && !(i == row && j == column)) {
+                if (isWithinBounds(i, j) && !(i == row && j == column)) {
                     if (Cell.isAlive(grid.get(i).get(j))) {
                         count++;
                     }
@@ -36,6 +36,11 @@ public class Grid {
         }
 
         return count;
+    }
+
+    // Helper method to calculate bounds of the grid
+    private boolean isWithinBounds(int i, int j) {
+        return i >= 0 && i < rows && j >= 0 && j < columns;
     }
 
     // Method to update the grid for the next generation
