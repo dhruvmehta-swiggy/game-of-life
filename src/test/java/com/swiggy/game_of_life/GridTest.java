@@ -86,6 +86,31 @@ public class GridTest {
         assertEquals(2, liveNeighbours);
     }
 
-    // Test to check isGridValid method when grid is null
+    // Test to check createEmptyGrid method when rows and columns are 3
+    @Test
+    public void testCreateEmptyGrid_Then3x3Grid() {
+        List<List<Cell>> emptyGrid = Grid.createEmptyGrid(3, 3);
 
+        // Check if the grid is 3x3
+        assertEquals(3, emptyGrid.size());
+
+        // Check if each row has 3 columns
+        for (List<Cell> row : emptyGrid) {
+            assertEquals(3, row.size());
+        }
+
+        // Check if all cells are dead
+        for (List<Cell> row : emptyGrid) {
+            for (Cell cell : row) {
+                assertFalse(Cell.isAlive(cell));
+            }
+        }
+    }
+
+    // Test to check createEmptyGrid method when rows and columns are 0
+    @Test
+    public void testCreateEmptyGrid_ZeroRowsAndColumns_ThenEmptyGrid() {
+        List<List<Cell>> emptyGrid = Grid.createEmptyGrid(0, 0);
+        assertTrue(emptyGrid.isEmpty());
+    }
 }
