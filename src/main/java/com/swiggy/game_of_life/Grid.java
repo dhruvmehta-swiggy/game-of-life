@@ -1,9 +1,8 @@
 package com.swiggy.game_of_life;
 
-import com.swiggy.game_of_life.Exceptions.InvalidGridException;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Grid {
 
@@ -48,5 +47,36 @@ public class Grid {
         }
 
         return count;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Grid grid1 = (Grid) obj;
+
+        if (rows != grid1.rows || columns != grid1.columns) {
+            return false;
+        }
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                boolean thisCellState = Cell.isAlive(grid.get(i).get(j));
+                boolean grid1CellState = Cell.isAlive(grid1.grid.get(i).get(j));
+                if (grid1CellState != thisCellState) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(grid, rows, columns);
     }
 }

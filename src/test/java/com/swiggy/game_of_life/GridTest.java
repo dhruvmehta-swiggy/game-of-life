@@ -33,17 +33,13 @@ public class GridTest {
     // Test to check constructor when grid is null
     @Test
     public void testConstructor_NullGrid_ThrowsInvalidGridException() {
-        assertThrows(InvalidGridException.class, () -> {
-            new Grid(null);
-        });
+        assertThrows(InvalidGridException.class, () -> new Grid(null));
     }
 
     // Test to check constructor when grid is empty
     @Test
     public void testConstructor_EmptyGrid_ThrowsInvalidGridException() {
-        assertThrows(InvalidGridException.class, () -> {
-            new Grid(new ArrayList<>());
-        });
+        assertThrows(InvalidGridException.class, () -> new Grid(new ArrayList<>()));
     }
 
     // Test to check constructor when grid is valid
@@ -112,5 +108,29 @@ public class GridTest {
     public void testCreateEmptyGrid_ZeroRowsAndColumns_ThenEmptyGrid() {
         List<List<Cell>> emptyGrid = Grid.createEmptyGrid(0, 0);
         assertTrue(emptyGrid.isEmpty());
+    }
+
+    // Test to check equals method when two grids are equal
+    @Test
+    public void testEquals_TwoEqualGrids_ThenTrue() {
+        List<List<Cell>> cells = Arrays.asList(
+                Arrays.asList(new Cell(false), new Cell(true), new Cell(false)),
+                Arrays.asList(new Cell(true), new Cell(true), new Cell(false)),
+                Arrays.asList(new Cell(false), new Cell(false), new Cell(true))
+        );
+        Grid otherGrid = new Grid(cells);
+        assertEquals(grid, otherGrid);
+    }
+
+    // Test to check equals method when two grids are not equal
+    @Test
+    public void testEquals_TwoUnequalGrids_ThenFalse() {
+        List<List<Cell>> cells = Arrays.asList(
+                Arrays.asList(new Cell(false), new Cell(true), new Cell(false)),
+                Arrays.asList(new Cell(true), new Cell(true), new Cell(false)),
+                Arrays.asList(new Cell(false), new Cell(false), new Cell(false))
+        );
+        Grid otherGrid = new Grid(cells);
+        assertNotEquals(grid, otherGrid);
     }
 }
