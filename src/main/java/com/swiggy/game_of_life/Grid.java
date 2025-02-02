@@ -10,8 +10,9 @@ public class Grid {
 
     // 2D array to store the grid
     private List<List<Cell>> grid;
-    private int rows;
-    private int columns;
+    private final int rows;
+    private final int columns;
+    private int liveCellCount;
 
     public Grid(List<List<Cell>> grid) {
         Util.validateGrid(grid);
@@ -19,6 +20,17 @@ public class Grid {
         this.grid = grid;
         this.rows = grid.size();
         this.columns = grid.get(0).size();
+        this.liveCellCount = 0;
+    }
+
+    // Method to get the grid
+    public List<List<Cell>> getGrid() {
+        return grid;
+    }
+
+    // Method to check if least one cell is alive
+    public boolean isAnyCellAlive() {
+        return liveCellCount > 0;
     }
 
     // Method to count the number of live neighbours of a cell
@@ -53,8 +65,10 @@ public class Grid {
                 boolean isAlive = Cell.isAlive(grid.get(i).get(j));
                 if (Util.shouldCellLive(isAlive, liveNeighbours)) {
                     Cell.revive(newGrid.get(i).get(j));
+                    liveCellCount++;
                 } else {
                     Cell.kill(newGrid.get(i).get(j));
+                    liveCellCount--;
                 }
             }
         }
