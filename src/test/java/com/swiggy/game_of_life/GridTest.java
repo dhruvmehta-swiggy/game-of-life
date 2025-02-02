@@ -133,4 +133,135 @@ public class GridTest {
         Grid otherGrid = new Grid(cells);
         assertNotEquals(grid, otherGrid);
     }
+
+    // Helper method to create a grid from a 2D boolean array
+    private List<List<Cell>> createGridFromBooleanArray(List<List<Boolean>> array) {
+        List<List<Cell>> grid = new ArrayList<>();
+        for (List<Boolean> row : array) {
+            List<Cell> gridRow = new ArrayList<>();
+            for (boolean cellState : row) {
+                gridRow.add(new Cell(cellState));
+            }
+            grid.add(gridRow);
+        }
+        return grid;
+    }
+
+    // Test for a simple still life pattern (Block)
+    @Test
+    public void testNextGenerationGrid_BlockPattern_ThenUpdateRemainsSame() {
+        /*
+         * Initial state:
+         * [0, 0, 0, 0]
+         * [0, 1, 1, 0]
+         * [0, 1, 1, 0]
+         * [0, 0, 0, 0]
+         * */
+        List<List<Boolean>> initialState = Arrays.asList(
+                Arrays.asList(false, false, false, false),
+                Arrays.asList(false, true, true, false),
+                Arrays.asList(false, true, true, false),
+                Arrays.asList(false, false, false, false)
+        );
+        List<List<Cell>> actualCells = createGridFromBooleanArray(initialState);
+        Grid actualGrid = new Grid(actualCells);
+
+        // Update the grid
+        actualGrid.nextGenerationUpdate();
+
+        // Check if the grid remains the same
+        assertEquals(new Grid(actualCells), actualGrid);
+    }
+
+    // Test for a simple oscillator pattern (Blinker)
+    @Test
+    public void testNextGenerationGrid_BlinkerPattern_ThenUpdateChanges() {
+        /*
+         * Initial state:
+         * [0, 0, 0, 0, 0]
+         * [0, 0, 1, 0, 0]
+         * [0, 0, 1, 0, 0]
+         * [0, 0, 1, 0, 0]
+         * [0, 0, 0, 0, 0]
+         * */
+        List<List<Boolean>> initialState = Arrays.asList(
+                Arrays.asList(false, false, false, false, false),
+                Arrays.asList(false, false, true, false, false),
+                Arrays.asList(false, false, true, false, false),
+                Arrays.asList(false, false, true, false, false),
+                Arrays.asList(false, false, false, false, false)
+        );
+        List<List<Cell>> actualCells = createGridFromBooleanArray(initialState);
+        Grid actualGrid = new Grid(actualCells);
+
+        /*
+         * Expected state after one update:
+         * [0, 0, 0, 0, 0]
+         * [0, 0, 0, 0, 0]
+         * [0, 1, 1, 1, 0]
+         * [0, 0, 0, 0, 0]
+         * [0, 0, 0, 0, 0]
+         * */
+        List<List<Boolean>> expectedState = Arrays.asList(
+                Arrays.asList(false, false, false, false, false),
+                Arrays.asList(false, false, false, false, false),
+                Arrays.asList(false, true, true, true, false),
+                Arrays.asList(false, false, false, false, false),
+                Arrays.asList(false, false, false, false, false)
+        );
+        List<List<Cell>> expectedCells = createGridFromBooleanArray(expectedState);
+        Grid expectedGrid = new Grid(expectedCells);
+
+        // Update the grid
+        actualGrid.nextGenerationUpdate();
+
+        // Check if the grid matches the expected state
+        assertEquals(expectedGrid, actualGrid);
+    }
+
+    // Test for a simple spaceship pattern (Glider)
+    @Test
+    public void testNextGenerationGrid_GliderPattern_ThenUpdateChanges() {
+        /*
+         * Initial state:
+         * [0, 1, 0, 0, 0]
+         * [0, 0, 1, 0, 0]
+         * [1, 1, 1, 0, 0]
+         * [0, 0, 0, 0, 0]
+         * [0, 0, 0, 0, 0]
+         * */
+        List<List<Boolean>> initialState = Arrays.asList(
+                Arrays.asList(false, true, false, false, false),
+                Arrays.asList(false, false, true, false, false),
+                Arrays.asList(true, true, true, false, false),
+                Arrays.asList(false, false, false, false, false),
+                Arrays.asList(false, false, false, false, false)
+        );
+        List<List<Cell>> actualCells = createGridFromBooleanArray(initialState);
+        Grid actualGrid = new Grid(actualCells);
+
+        /*
+         * Expected state after one update:
+         * [0, 0, 0, 0, 0]
+         * [1, 0, 1, 0, 0]
+         * [0, 1, 1, 1, 0]
+         * [0, 1, 0, 0, 0]
+         * [0, 0, 0, 0, 0]
+         * */
+        List<List<Boolean>> expectedState = Arrays.asList(
+                Arrays.asList(false, false, false, false, false),
+                Arrays.asList(true, false, true, false, false),
+                Arrays.asList(false, true, true, false, false),
+                Arrays.asList(false, true, false, false, false),
+                Arrays.asList(false, false, false, false, false)
+        );
+        List<List<Cell>> expectedCells = createGridFromBooleanArray(expectedState);
+        Grid expectedGrid = new Grid(expectedCells);
+
+        // Update the grid
+        actualGrid.nextGenerationUpdate();
+
+        // Check if the grid matches the expected state
+        assertEquals(expectedGrid, actualGrid);
+    }
 }

@@ -49,6 +49,25 @@ public class Grid {
         return count;
     }
 
+    // Method to update the grid for the next generation
+    public void nextGenerationUpdate() {
+        List<List<Cell>> newGrid = createEmptyGrid(rows, columns);
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                int liveNeighbours = countLiveNeighbours(i, j);
+                boolean isAlive = Cell.isAlive(grid.get(i).get(j));
+                if (GameRules.shouldCellLive(isAlive, liveNeighbours)) {
+                    Cell.revive(newGrid.get(i).get(j));
+                } else {
+                    Cell.kill(newGrid.get(i).get(j));
+                }
+            }
+        }
+
+        grid = newGrid;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
