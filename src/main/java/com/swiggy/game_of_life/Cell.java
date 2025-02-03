@@ -12,11 +12,8 @@ public class Cell {
 
 
     // Method to check if a cell is alive
-    public static boolean isAlive(Cell cell) {
-        if (cell == null) {
-            throw new NullCellException("Cell cannot be null");
-        }
-        return cell.isAlive;
+    public boolean isAlive() {
+        return this.isAlive;
     }
 
     // Method to make cell alive

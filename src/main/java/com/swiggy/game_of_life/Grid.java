@@ -1,6 +1,5 @@
 package com.swiggy.game_of_life;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +23,7 @@ public class Grid {
         liveCellCount = 0;
         for (List<Cell> row : grid) {
             for (Cell cell : row) {
-                if (Cell.isAlive(cell)) {
+                if (cell.isAlive()) {
                     liveCellCount++;
                 }
             }
@@ -48,7 +47,8 @@ public class Grid {
         for (int i = row - 1; i <= row + 1; i++) {
             for (int j = column - 1; j <= column + 1; j++) {
                 if (isWithinBounds(i, j) && !(i == row && j == column)) {
-                    if (Cell.isAlive(grid.get(i).get(j))) {
+                    Cell cell = grid.get(i).get(j);
+                    if (cell.isAlive()) {
                         count++;
                     }
                 }
@@ -70,7 +70,8 @@ public class Grid {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 int liveNeighbours = countLiveNeighbours(i, j);
-                boolean isAlive = Cell.isAlive(grid.get(i).get(j));
+                Cell cell = grid.get(i).get(j);
+                boolean isAlive = cell.isAlive();
                 if (Util.shouldCellLive(isAlive, liveNeighbours)) {
                     Cell.revive(newGrid.get(i).get(j));
                     liveCellCount++;
@@ -90,7 +91,7 @@ public class Grid {
         StringBuilder gridString = new StringBuilder();
         for (List<Cell> row : grid) {
             for (Cell cell : row) {
-                gridString.append(Cell.isAlive(cell) ? " 1 " : " 0 ");
+                gridString.append(cell.isAlive() ? " 1 " : " 0 ");
             }
             gridString.append("\n");
         }
@@ -113,8 +114,10 @@ public class Grid {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                boolean thisCellState = Cell.isAlive(grid.get(i).get(j));
-                boolean grid1CellState = Cell.isAlive(grid1.grid.get(i).get(j));
+                Cell cell = grid.get(i).get(j);
+                boolean thisCellState = cell.isAlive();
+                Cell cell1 = grid1.grid.get(i).get(j);
+                boolean grid1CellState = cell1.isAlive();
                 if (grid1CellState != thisCellState) {
                     return false;
                 }

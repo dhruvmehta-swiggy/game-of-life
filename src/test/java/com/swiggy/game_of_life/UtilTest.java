@@ -109,7 +109,7 @@ public class UtilTest {
         // Check if all cells are dead
         for (List<Cell> row : emptyGrid) {
             for (Cell cell : row) {
-                assertFalse(Cell.isAlive(cell));
+                assertFalse(cell.isAlive());
             }
         }
     }
