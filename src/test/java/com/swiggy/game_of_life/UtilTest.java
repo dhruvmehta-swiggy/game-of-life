@@ -120,4 +120,49 @@ public class UtilTest {
         List<List<Cell>> emptyGrid = Util.createEmptyGrid(0, 0);
         assertTrue(emptyGrid.isEmpty());
     }
+
+    // Test to check seedGrid method when seed percentage is 0
+    @Test
+    public void testSeedGrid_WhenSeedPercentageIs0_ThenAllCellsDead() {
+        List<List<Cell>> grid = Util.createEmptyGrid(3, 3);
+        Util.seedGrid(grid, 0);
+
+        for (List<Cell> row : grid) {
+            for (Cell cell : row) {
+                assertFalse(cell.isAlive());
+            }
+        }
+    }
+
+    // Test to check seedGrid method when seed percentage is 100
+    @Test
+    public void testSeedGrid_WhenSeedPercentageIs100_ThenAllCellsAlive() {
+        List<List<Cell>> grid = Util.createEmptyGrid(3, 3);
+        Util.seedGrid(grid, 100);
+
+        for (List<Cell> row : grid) {
+            for (Cell cell : row) {
+                assertTrue(cell.isAlive());
+            }
+        }
+    }
+
+    // Test to check seedGrid method when seed percentage is 50
+    @Test
+    public void testSeedGrid_WhenSeedPercentageIs50_ThenHalfCellsAlive() {
+        List<List<Cell>> grid = Util.createEmptyGrid(4, 4);
+        Util.seedGrid(grid, 50);
+
+        int liveCells = 0;
+        for (List<Cell> row : grid) {
+            for (Cell cell : row) {
+                if (cell.isAlive()) {
+                    liveCells++;
+                }
+            }
+        }
+
+        // 8 cells should be alive out of 16
+        assertEquals(8, liveCells);
+    }
 }

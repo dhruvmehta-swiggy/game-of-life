@@ -30,11 +30,6 @@ public class Grid {
         }
     }
 
-    // Method to get the grid
-    public List<List<Cell>> getGrid() {
-        return grid;
-    }
-
     // Method to check if least one cell is alive
     public boolean isAnyCellAlive() {
         return liveCellCount > 0;

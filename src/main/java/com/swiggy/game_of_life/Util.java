@@ -4,6 +4,7 @@ import com.swiggy.game_of_life.Exceptions.InvalidGridException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Util {
 
@@ -51,5 +52,25 @@ public class Util {
             grid.add(row);
         }
         return grid;
+    }
+
+    // Method to seed the grid with live cells
+    public static void seedGrid(List<List<Cell>> grid, int seedPercentage) {
+        int rows = grid.size();
+        int columns = grid.get(0).size();
+        int totalCells = rows * columns;
+        int liveCells = (int) (totalCells * (seedPercentage / 100.0));
+
+        Random random = new Random();
+        for (int i = 0; i < liveCells; i++) {
+            int row, col;
+            do {
+                row = random.nextInt(rows);
+                col = random.nextInt(columns);
+            } while (grid.get(row).get(col).isAlive());
+
+            Cell cell = grid.get(row).get(col);
+            cell.revive();
+        }
     }
 }
