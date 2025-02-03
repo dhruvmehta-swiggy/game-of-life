@@ -20,7 +20,15 @@ public class Grid {
         this.grid = grid;
         this.rows = grid.size();
         this.columns = grid.get(0).size();
-        this.liveCellCount = 0;
+
+        liveCellCount = 0;
+        for (List<Cell> row : grid) {
+            for (Cell cell : row) {
+                if (Cell.isAlive(cell)) {
+                    liveCellCount++;
+                }
+            }
+        }
     }
 
     // Method to get the grid
@@ -74,6 +82,19 @@ public class Grid {
         }
 
         grid = newGrid;
+    }
+
+    // Method to return the grid as a string
+    @Override
+    public String toString() {
+        StringBuilder gridString = new StringBuilder();
+        for (List<Cell> row : grid) {
+            for (Cell cell : row) {
+                gridString.append(Cell.isAlive(cell) ? " 1 " : " 0 ");
+            }
+            gridString.append("\n");
+        }
+        return gridString.toString();
     }
 
     @Override

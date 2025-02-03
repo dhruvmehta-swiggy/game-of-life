@@ -236,4 +236,27 @@ public class GridTest {
         // Check if the grid matches the expected state
         assertEquals(expectedGrid, actualGrid);
     }
+
+    // Test to check toString method for a grid with 3x3 cells
+    @Test
+    public void testToString_3x3Grid_ThenReturnStringRepresentation() {
+        String actualString = grid.toString();
+        String expectedString = " 0  1  0 \n 1  1  0 \n 0  0  1 \n";
+        assertEquals(expectedString, actualString);
+    }
+
+    // Test to check toString method for a grid with 4x4 cells
+    @Test
+    public void testToString_4x4Grid_ThenReturnStringRepresentation() {
+        List<List<Cell>> cells = Arrays.asList(
+                Arrays.asList(new Cell(false), new Cell(true), new Cell(false), new Cell(true)),
+                Arrays.asList(new Cell(true), new Cell(true), new Cell(false), new Cell(false)),
+                Arrays.asList(new Cell(false), new Cell(false), new Cell(true), new Cell(true)),
+                Arrays.asList(new Cell(true), new Cell(false), new Cell(true), new Cell(false))
+        );
+        Grid grid = new Grid(cells);
+        String actualString = grid.toString();
+        String expectedString = " 0  1  0  1 \n 1  1  0  0 \n 0  0  1  1 \n 1  0  1  0 \n";
+        assertEquals(expectedString, actualString);
+    }
 }
