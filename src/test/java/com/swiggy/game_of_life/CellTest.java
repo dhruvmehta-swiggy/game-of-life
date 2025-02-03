@@ -25,7 +25,7 @@ public class CellTest {
     @Test
     public void testKill_WhenCellIsAlive_ThenCellIsDead() {
         Cell cell = new Cell(true);
-        Cell.kill(cell);
+        cell.kill();
         assertFalse(cell.isAlive());
     }
 
@@ -35,14 +35,6 @@ public class CellTest {
         Cell cell = new Cell(false);
         Cell.revive(cell);
         assertTrue(cell.isAlive());
-    }
-
-    // Test to check if NullCellException is thrown when cell is null
-    @Test
-    public void testKill_WhenCellIsNull_ThenThrowNullCellException() {
-        assertThrows(NullCellException.class, () -> {
-            Cell.kill(null);
-        });
     }
 
     // Test to check if NullCellException is thrown when cell is null

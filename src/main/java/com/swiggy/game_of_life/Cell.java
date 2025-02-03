@@ -17,11 +17,8 @@ public class Cell {
     }
 
     // Method to make cell alive
-    public static void kill(Cell cell) {
-        if (cell == null) {
-            throw new NullCellException("Cell cannot be null");
-        }
-        cell.isAlive = false;
+    public void kill() {
+        this.isAlive = false;
     }
 
     // Method to make cell dead

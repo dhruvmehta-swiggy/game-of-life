@@ -76,7 +76,8 @@ public class Grid {
                     Cell.revive(newGrid.get(i).get(j));
                     liveCellCount++;
                 } else {
-                    Cell.kill(newGrid.get(i).get(j));
+                    Cell cell1 = newGrid.get(i).get(j);
+                    cell1.kill();
                     liveCellCount--;
                 }
             }
