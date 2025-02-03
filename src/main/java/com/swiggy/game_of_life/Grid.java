@@ -72,11 +72,11 @@ public class Grid {
                 int liveNeighbours = countLiveNeighbours(i, j);
                 Cell cell = grid.get(i).get(j);
                 boolean isAlive = cell.isAlive();
+                Cell cell1 = newGrid.get(i).get(j);
                 if (Util.shouldCellLive(isAlive, liveNeighbours)) {
-                    Cell.revive(newGrid.get(i).get(j));
+                    cell1.revive();
                     liveCellCount++;
                 } else {
-                    Cell cell1 = newGrid.get(i).get(j);
                     cell1.kill();
                     liveCellCount--;
                 }

@@ -22,10 +22,7 @@ public class Cell {
     }
 
     // Method to make cell dead
-    public static void revive(Cell cell) {
-        if (cell == null) {
-            throw new NullCellException("Cell cannot be null");
-        }
-        cell.isAlive = true;
+    public  void revive() {
+        this.isAlive = true;
     }
 }

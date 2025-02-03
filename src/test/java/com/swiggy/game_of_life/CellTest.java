@@ -33,16 +33,8 @@ public class CellTest {
     @Test
     public void testRevive_WhenCellIsDead_ThenCellIsAlive() {
         Cell cell = new Cell(false);
-        Cell.revive(cell);
+        cell.revive();
         assertTrue(cell.isAlive());
-    }
-
-    // Test to check if NullCellException is thrown when cell is null
-    @Test
-    public void testRevive_WhenCellIsNull_ThenThrowNullCellException() {
-        assertThrows(NullCellException.class, () -> {
-            Cell.revive(null);
-        });
     }
 
 }
