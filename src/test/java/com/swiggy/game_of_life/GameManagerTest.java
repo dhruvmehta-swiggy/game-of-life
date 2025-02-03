@@ -14,9 +14,7 @@ public class GameManagerTest {
     // Test to check Game constructor when grid is null
     @Test
     public void testConstructor_NullGrid_ThrowsInvalidGridException() {
-        assertThrows(InvalidGridException.class, () -> {
-            new GameManager(null);
-        });
+        assertThrows(InvalidGridException.class, () -> new GameManager(null));
     }
 
     // Test to check Game constructor when grid is valid

@@ -70,10 +70,12 @@ public class Grid {
                 Cell cell1 = newGrid.get(i).get(j);
                 if (Util.shouldCellLive(isAlive, liveNeighbours)) {
                     cell1.revive();
-                    liveCellCount++;
+                    if (!isAlive)
+                        liveCellCount++;
                 } else {
                     cell1.kill();
-                    liveCellCount--;
+                    if (isAlive)
+                        liveCellCount--;
                 }
             }
         }
@@ -87,7 +89,7 @@ public class Grid {
         StringBuilder gridString = new StringBuilder();
         for (List<Cell> row : grid) {
             for (Cell cell : row) {
-                gridString.append(cell.isAlive() ? " 1 " : " 0 ");
+                gridString.append(cell.isAlive() ? " * " : " . ");
             }
             gridString.append("\n");
         }
