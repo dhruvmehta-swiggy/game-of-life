@@ -2,10 +2,9 @@ package com.swiggy.game_of_life;
 
 import com.swiggy.game_of_life.Exceptions.InvalidGridException;
 
-import java.util.List;
 import java.util.Scanner;
 
-public class GameManager {
+public class Game {
 
     private static final String GRID_CANNOT_BE_NULL = "Grid cannot be null";
     private static final String CURRENT_GRID_MESSAGE = "Current Grid:";
@@ -14,7 +13,7 @@ public class GameManager {
     private static final String GAME_STOPPED_BY_USER_MESSAGE = "Game stopped by user.";
     private static final int STOP_GAME_INPUT = -1;
 
-    public GameManager(Grid grid) {
+    public Game(Grid grid) {
         if (grid == null) {
             throw new InvalidGridException(GRID_CANNOT_BE_NULL);
         }

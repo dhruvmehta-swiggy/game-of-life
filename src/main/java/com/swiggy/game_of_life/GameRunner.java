@@ -15,9 +15,9 @@ public class GameRunner {
         List<List<Cell>> initialGrid = initializeGrid(rows, columns, seedPercentage);
 
         Grid grid = new Grid(initialGrid);
-        GameManager gameManager = new GameManager(grid);
+        Game game = new Game(grid);
 
-        gameManager.run(grid, scanner);
+        game.run(grid, scanner);
 
         scanner.close();
     }

@@ -241,7 +241,7 @@ public class GridTest {
     @Test
     public void testToString_3x3Grid_ThenReturnStringRepresentation() {
         String actualString = grid.toString();
-        String expectedString = " 0  1  0 \n 1  1  0 \n 0  0  1 \n";
+        String expectedString = " .  *  . \n *  *  . \n .  .  * \n";
         assertEquals(expectedString, actualString);
     }
 
@@ -256,7 +256,7 @@ public class GridTest {
         );
         Grid grid = new Grid(cells);
         String actualString = grid.toString();
-        String expectedString = " 0  1  0  1 \n 1  1  0  0 \n 0  0  1  1 \n 1  0  1  0 \n";
+        String expectedString = " .  *  .  * \n *  *  .  . \n .  .  *  * \n *  .  *  . \n";
         assertEquals(expectedString, actualString);
     }
 }
