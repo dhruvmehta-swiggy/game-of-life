@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class Grid {
+    
+    private static final String ALIVE_CELL = " * ";
+    private static final String DEAD_CELL = " . ";
 
     // 2D array to store the grid
     private final List<List<Cell>> grid;
@@ -84,7 +87,7 @@ public class Grid {
         StringBuilder gridString = new StringBuilder();
         for (List<Cell> row : grid) {
             for (Cell cell : row) {
-                gridString.append(cell.isAlive() ? " * " : " . ");
+                gridString.append(cell.isAlive() ? ALIVE_CELL : DEAD_CELL);
             }
             gridString.append("\n");
         }
