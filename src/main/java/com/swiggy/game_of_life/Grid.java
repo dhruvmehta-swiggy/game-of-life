@@ -1,14 +1,13 @@
 package com.swiggy.game_of_life;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.swiggy.game_of_life.Util.createEmptyGrid;
 
 public class Grid {
 
     // 2D array to store the grid
-    private List<List<Cell>> grid;
+    private final List<List<Cell>> grid;
     private final int rows;
     private final int columns;
     private int liveCellCount;
@@ -35,24 +34,6 @@ public class Grid {
         return liveCellCount > 0;
     }
 
-    // Method to count the number of live neighbours of a cell
-    public int countLiveNeighbours(int row, int column) {
-        int count = 0;
-
-        for (int i = row - 1; i <= row + 1; i++) {
-            for (int j = column - 1; j <= column + 1; j++) {
-                if (isWithinBounds(i, j) && !(i == row && j == column)) {
-                    Cell cell = grid.get(i).get(j);
-                    if (cell.isAlive()) {
-                        count++;
-                    }
-                }
-            }
-        }
-
-        return count;
-    }
-
     // Helper method to calculate bounds of the grid
     private boolean isWithinBounds(int i, int j) {
         return i >= 0 && i < rows && j >= 0 && j < columns;
@@ -60,27 +41,41 @@ public class Grid {
 
     // Method to update the grid for the next generation
     public void nextGenerationUpdate() {
-        List<List<Cell>> newGrid = createEmptyGrid(rows, columns);
-
+        // First pass: calculate next state
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                int liveNeighbours = countLiveNeighbours(i, j);
                 Cell cell = grid.get(i).get(j);
-                boolean isAlive = cell.isAlive();
-                Cell cell1 = newGrid.get(i).get(j);
-                if (Util.shouldCellLive(isAlive, liveNeighbours)) {
-                    cell1.revive();
-                    if (!isAlive)
-                        liveCellCount++;
-                } else {
-                    cell1.kill();
-                    if (isAlive)
-                        liveCellCount--;
+                List<Cell> neighbours = getNeighbouringCells(i, j);
+                cell.setNextState(neighbours);
+            }
+        }
+
+        // Second pass: apply next state
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Cell cell = grid.get(i).get(j);
+                boolean currentState = cell.isAlive();
+                cell.transitionToNextState();
+                if (cell.isAlive() != currentState) {
+                    liveCellCount += cell.isAlive() ? 1 : -1;
+                }
+            }
+        }
+    }
+
+    // Method to get a list of neighboring cells of the given cell
+    private List<Cell> getNeighbouringCells(int row, int column) {
+        List<Cell> neighbours = new ArrayList<>();
+
+        for (int i = row - 1; i <= row + 1; i++) {
+            for (int j = column - 1; j <= column + 1; j++) {
+                if (isWithinBounds(i, j) && !(i == row && j == column)) {
+                    neighbours.add(grid.get(i).get(j));
                 }
             }
         }
 
-        grid = newGrid;
+        return neighbours;
     }
 
     // Method to return the grid as a string
