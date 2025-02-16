@@ -2,7 +2,7 @@ package com.swiggy.game_of_life;
 
 import java.util.Scanner;
 
-public class GameRunner {
+public class User {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
