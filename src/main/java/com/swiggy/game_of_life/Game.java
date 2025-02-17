@@ -8,11 +8,12 @@ import java.util.Scanner;
 public class Game {
 
     // Constants
-    private static final String GRID_CANNOT_BE_NULL = "Grid cannot be null";
     private static final String CURRENT_GRID_MESSAGE = "Current Grid:";
     private static final String STOP_GAME_PROMPT = "Enter -1 to stop the game, or any other number to continue:";
     private static final String ALL_CELLS_DEAD_MESSAGE = "All cells are dead. Stopping the game.";
     private static final String GAME_STOPPED_BY_USER_MESSAGE = "Game stopped by user.";
+    private static final String INVALID_GRID_EXCEPTION_MESSAGE = "Invalid grid dimensions or seed percentage";
+    private static final String INVALID_SCANNER_EXCEPTION_MESSAGE = "Invalid scanner";
     private static final int STOP_GAME_INPUT = -1;
 
     // Game State
@@ -22,7 +23,7 @@ public class Game {
     // Constructor
     public Game(int rows, int columns, int seedPercentage, Scanner scanner) {
         if (scanner == null) {
-            throw new InvalidGridException("Scanner cannot be null");
+            throw new IllegalArgumentException(INVALID_SCANNER_EXCEPTION_MESSAGE);
         }
         this.scanner = scanner;
         this.grid = initializeGrid(rows, columns, seedPercentage);
@@ -30,6 +31,9 @@ public class Game {
 
     // Initialize Grid
     private Grid initializeGrid(int rows, int columns, int seedPercentage) {
+        if (rows <= 0 || columns <= 0 || seedPercentage < 0 || seedPercentage > 100) {
+            throw new InvalidGridException(INVALID_GRID_EXCEPTION_MESSAGE);
+        }
         List<List<Cell>> grid = Util.createEmptyGrid(rows, columns);
         Util.seedGrid(grid, seedPercentage);
         return new Grid(grid);

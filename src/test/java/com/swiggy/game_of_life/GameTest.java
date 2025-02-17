@@ -20,7 +20,7 @@ public class GameTest {
     // Test to verify that the constructor throws an IllegalArgumentException when the scanner is null
     @Test
     public void testConstructor_WhenScannerIsNull_ThenThrowIllegalArgumentException() {
-        assertThrows(InvalidGridException.class, () -> new Game(5, 5, 10, null));
+        assertThrows(IllegalArgumentException.class, () -> new Game(5, 5, 10, null));
     }
 
     // Test to ensure no exception is thrown when valid parameters are given (rows, columns, seedPercentage, and scanner)
