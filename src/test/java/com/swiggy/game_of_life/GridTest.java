@@ -91,7 +91,7 @@ public class GridTest {
         return grid;
     }
 
-    // Test for a simple still life pattern (Block)
+    // Test for a simple still life pattern (Block) over 5 generations
     @Test
     public void testNextGenerationGrid_BlockPattern_ThenUpdateRemainsSame() {
         /*
@@ -110,11 +110,70 @@ public class GridTest {
         List<List<Cell>> actualCells = createGridFromBooleanArray(initialState);
         Grid actualGrid = new Grid(actualCells);
 
-        // Update the grid
-        actualGrid.nextGenerationUpdate();
+        // Corrected expected states for 5 generations
+        List<List<List<Boolean>>> generations = Arrays.asList(
+                /*
+                 * Generation 1:
+                 * [0, 0, 0, 0]
+                 * [0, 1, 1, 0]
+                 * [0, 1, 1, 0]
+                 * [0, 0, 0, 0]
+                 */
+                Arrays.asList(
+                        Arrays.asList(false, false, false, false),
+                        Arrays.asList(false, true, true, false),
+                        Arrays.asList(false, true, true, false),
+                        Arrays.asList(false, false, false, false)
+                ),
+                /*
+                 * Generation 2:
+                 * [0, 0, 0, 0]
+                 * [0, 1, 1, 0]
+                 * [0, 1, 1, 0]
+                 * [0, 0, 0, 0]
+                 */
+                Arrays.asList(
+                        Arrays.asList(false, false, false, false),
+                        Arrays.asList(false, true, true, false),
+                        Arrays.asList(false, true, true, false),
+                        Arrays.asList(false, false, false, false)
+                ),
+                /*
+                 * Generation 3:
+                 * [0, 0, 0, 0]
+                 * [0, 1, 1, 0]
+                 * [0, 1, 1, 0]
+                 * [0, 0, 0, 0]
+                 */
+                Arrays.asList(
+                        Arrays.asList(false, false, false, false),
+                        Arrays.asList(false, true, true, false),
+                        Arrays.asList(false, true, true, false),
+                        Arrays.asList(false, false, false, false)
+                ),
+                /*
+                 * Generation 4:
+                 * [0, 0, 0, 0]
+                 * [0, 1, 1, 0]
+                 * [0, 1, 1, 0]
+                 * [0, 0, 0, 0]
+                 */
+                Arrays.asList(
+                        Arrays.asList(false, false, false, false),
+                        Arrays.asList(false, true, true, false),
+                        Arrays.asList(false, true, true, false),
+                        Arrays.asList(false, false, false, false)
+                )
+        );
 
-        // Check if the grid remains the same
-        assertEquals(new Grid(actualCells), actualGrid);
+        // Update grid and check each generation
+        for (List<List<Boolean>> expectedState : generations) {
+            actualGrid.nextGenerationUpdate();
+            List<List<Cell>> expectedCells = createGridFromBooleanArray(expectedState);
+            Grid expectedGrid = new Grid(expectedCells);
+
+            assertEquals(expectedGrid, actualGrid);
+        }
     }
 
     // Test for a simple oscillator pattern (Blinker)
