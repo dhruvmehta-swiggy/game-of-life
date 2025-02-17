@@ -110,7 +110,7 @@ public class GridTest {
         List<List<Cell>> actualCells = createGridFromBooleanArray(initialState);
         Grid actualGrid = new Grid(actualCells);
 
-        // Corrected expected states for 5 generations
+        // Expected states for 5 generations
         List<List<List<Boolean>>> generations = Arrays.asList(
                 /*
                  * Generation 1:
@@ -176,17 +176,17 @@ public class GridTest {
         }
     }
 
-    // Test for a simple oscillator pattern (Blinker)
+    // Test for a simple oscillator pattern (Blinker) over 5 generations
     @Test
     public void testNextGenerationGrid_BlinkerPattern_ThenUpdateChanges() {
         /*
-         * Initial state:
+         * Initial state (Generation 0):
          * [0, 0, 0, 0, 0]
          * [0, 0, 1, 0, 0]
          * [0, 0, 1, 0, 0]
          * [0, 0, 1, 0, 0]
          * [0, 0, 0, 0, 0]
-         * */
+         */
         List<List<Boolean>> initialState = Arrays.asList(
                 Arrays.asList(false, false, false, false, false),
                 Arrays.asList(false, false, true, false, false),
@@ -197,29 +197,78 @@ public class GridTest {
         List<List<Cell>> actualCells = createGridFromBooleanArray(initialState);
         Grid actualGrid = new Grid(actualCells);
 
-        /*
-         * Expected state after one update:
-         * [0, 0, 0, 0, 0]
-         * [0, 0, 0, 0, 0]
-         * [0, 1, 1, 1, 0]
-         * [0, 0, 0, 0, 0]
-         * [0, 0, 0, 0, 0]
-         * */
-        List<List<Boolean>> expectedState = Arrays.asList(
-                Arrays.asList(false, false, false, false, false),
-                Arrays.asList(false, false, false, false, false),
-                Arrays.asList(false, true, true, true, false),
-                Arrays.asList(false, false, false, false, false),
-                Arrays.asList(false, false, false, false, false)
+        // Expected states for 5 generations
+        List<List<List<Boolean>>> generations = Arrays.asList(
+                /*
+                 * Generation 1:
+                 * [0, 0, 0, 0, 0]
+                 * [0, 0, 0, 0, 0]
+                 * [0, 1, 1, 1, 0]
+                 * [0, 0, 0, 0, 0]
+                 * [0, 0, 0, 0, 0]
+                 */
+                Arrays.asList(
+                        Arrays.asList(false, false, false, false, false),
+                        Arrays.asList(false, false, false, false, false),
+                        Arrays.asList(false, true, true, true, false),
+                        Arrays.asList(false, false, false, false, false),
+                        Arrays.asList(false, false, false, false, false)
+                ),
+                /*
+                 * Generation 2:
+                 * [0, 0, 0, 0, 0]
+                 * [0, 0, 1, 0, 0]
+                 * [0, 0, 1, 0, 0]
+                 * [0, 0, 1, 0, 0]
+                 * [0, 0, 0, 0, 0]
+                 */
+                Arrays.asList(
+                        Arrays.asList(false, false, false, false, false),
+                        Arrays.asList(false, false, true, false, false),
+                        Arrays.asList(false, false, true, false, false),
+                        Arrays.asList(false, false, true, false, false),
+                        Arrays.asList(false, false, false, false, false)
+                ),
+                /*
+                 * Generation 3:
+                 * [0, 0, 0, 0, 0]
+                 * [0, 0, 0, 0, 0]
+                 * [0, 1, 1, 1, 0]
+                 * [0, 0, 0, 0, 0]
+                 * [0, 0, 0, 0, 0]
+                 */
+                Arrays.asList(
+                        Arrays.asList(false, false, false, false, false),
+                        Arrays.asList(false, false, false, false, false),
+                        Arrays.asList(false, true, true, true, false),
+                        Arrays.asList(false, false, false, false, false),
+                        Arrays.asList(false, false, false, false, false)
+                ),
+                /*
+                 * Generation 4:
+                 * [0, 0, 0, 0, 0]
+                 * [0, 0, 1, 0, 0]
+                 * [0, 0, 1, 0, 0]
+                 * [0, 0, 1, 0, 0]
+                 * [0, 0, 0, 0, 0]
+                 */
+                Arrays.asList(
+                        Arrays.asList(false, false, false, false, false),
+                        Arrays.asList(false, false, true, false, false),
+                        Arrays.asList(false, false, true, false, false),
+                        Arrays.asList(false, false, true, false, false),
+                        Arrays.asList(false, false, false, false, false)
+                )
         );
-        List<List<Cell>> expectedCells = createGridFromBooleanArray(expectedState);
-        Grid expectedGrid = new Grid(expectedCells);
 
-        // Update the grid
-        actualGrid.nextGenerationUpdate();
+        // Update grid and check each generation
+        for (List<List<Boolean>> expectedState : generations) {
+            actualGrid.nextGenerationUpdate();
+            List<List<Cell>> expectedCells = createGridFromBooleanArray(expectedState);
+            Grid expectedGrid = new Grid(expectedCells);
 
-        // Check if the grid matches the expected state
-        assertEquals(expectedGrid, actualGrid);
+            assertEquals(expectedGrid, actualGrid);
+        }
     }
 
     // Test for a simple spaceship pattern (Glider) over 5 generations
@@ -243,7 +292,7 @@ public class GridTest {
         List<List<Cell>> actualCells = createGridFromBooleanArray(initialState);
         Grid actualGrid = new Grid(actualCells);
 
-        // Corrected expected states for 5 generations
+        // Expected states for 5 generations
         List<List<List<Boolean>>> generations = Arrays.asList(
                 /*
                  * Generation 1:
