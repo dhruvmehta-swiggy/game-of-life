@@ -96,25 +96,28 @@ public class Grid {
 
     @Override
     public boolean equals(Object obj) {
+        // Reference equality check
         if (this == obj) {
             return true;
         }
+
+        // Null check and class check
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Grid grid1 = (Grid) obj;
 
-        if (rows != grid1.rows || columns != grid1.columns) {
+        // Cast the object to Grid
+        Grid otherGrid = (Grid) obj;
+
+        // Dimension check
+        if (rows != otherGrid.rows || columns != otherGrid.columns) {
             return false;
         }
 
+        // Compare each cell's state
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                Cell cell = grid.get(i).get(j);
-                boolean thisCellState = cell.isAlive();
-                Cell cell1 = grid1.grid.get(i).get(j);
-                boolean grid1CellState = cell1.isAlive();
-                if (grid1CellState != thisCellState) {
+                if (grid.get(i).get(j).isAlive() != otherGrid.grid.get(i).get(j).isAlive()) {
                     return false;
                 }
             }
